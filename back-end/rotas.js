@@ -20,7 +20,7 @@ rotas.put('/perfil', usuarios.alterarUsuario);
 
 //Produtos
 rotas.get('/produtos', produtos.listarProdutos);
-rotas.get('/produtos/:id');
+rotas.get('/produtos/:id', produtos.listarProdutosId);
 rotas.post('/produtos', produtos.cadastrarProduto);
 rotas.put('/produtos/:id', produtos.alterarProduto);
 rotas.delete('/produtos/:id', produtos.deletarProduto);

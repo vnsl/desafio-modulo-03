@@ -87,6 +87,15 @@ const deletarProduto = async (req, res) => {
 };
 
 const listarProdutos = async (req, res) => {
+    try {
+        const produtos = await conexao.query('select * from produtos');
+
+        return res.status(200).json(produtos.rows);
+
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+
 
 };
 
