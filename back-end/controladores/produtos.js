@@ -56,12 +56,44 @@ const alterarProduto = async (req, res) => {
             return res.status(400).json('Não foi possível atualizar os dados do produto.')
         }
 
-        return res.status(200).json('O produto foi atualizado com sucesso.')
+        return res.status(200).json('O produto foi atualizado com sucesso.');
     } catch (error) {
         return res.status(400).json(error.message);
     }
-}
+};
+
+const deletarProduto = async (req, res) => {
+    const { usuario } = req;
+    const { id } = req.params;
+
+    try {
+        const queryProduto = 'select * from produtos where id = $1 and usuario_id = $2';
+        const produtoExistente = await conexao.query(queryProduto, [id, usuario.id]);
+
+        if (produtoExistente.rowCount === 0) {
+            return res.status(400).json('Produto não foi encontrado.');
+        }
+
+        const { rowCount } = await conexao.query('delete from produtos where id = $1', [id]);
+
+        if (rowCount === 0) {
+            return res.status(400).json('Não foi possível excluir o produto.')
+        }
+
+        return res.status(200).json('Produto excluído com sucesso.')
+    } catch (error) {
+        return res.status(400).json(error.message)
+    }
+};
+
+const listarProdutos = async (req, res) => {
+
+};
+
+
 module.exports = {
     cadastrarProduto,
-    alterarProduto
+    alterarProduto,
+    deletarProduto, 
+    listarProdutos
 };

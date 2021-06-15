@@ -19,11 +19,11 @@ rotas.get('/perfil', usuarios.detalhes);
 rotas.put('/perfil', usuarios.alterarUsuario);
 
 //Produtos
-rotas.get('/produtos');
+rotas.get('/produtos', produtos.listarProdutos);
 rotas.get('/produtos/:id');
 rotas.post('/produtos', produtos.cadastrarProduto);
 rotas.put('/produtos/:id', produtos.alterarProduto);
-rotas.delete('/produtos/:id');
+rotas.delete('/produtos/:id', produtos.deletarProduto);
 
 
 module.exports = rotas;
