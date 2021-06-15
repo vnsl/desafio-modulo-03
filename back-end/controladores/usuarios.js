@@ -48,6 +48,8 @@ const detalhes = async (req, res) => {
     res.status(200).json(usuario);
 };
 
+
+
 module.exports = {
     cadastrarUsuario,
     detalhes
