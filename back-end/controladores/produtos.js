@@ -86,23 +86,44 @@ const deletarProduto = async (req, res) => {
     }
 };
 
-const listarProdutos = async (req, res) => {
+const listarProdutosDoUsuario = async (req, res) => {
+    const { usuario } = req;
+    
     try {
-        const produtos = await conexao.query('select * from produtos');
+        const produtos = await conexao.query('select * from produtos where usuario_id = $1', [usuario.id]);
+
+        if (produtos.rowCount === 0) {
+            return res.status(400).json('Nenhum produto cadastrado.')
+        }
 
         return res.status(200).json(produtos.rows);
 
     } catch (error) {
         return res.status(400).json(error.message);
     }
-
-
 };
 
+const listarProdutosId = async (req, res) => {
+    const { usuario } = req;
+    const { id } = req.params;
+
+    try {
+        const produtos = await conexao.query('select * from produtos where usuario_id = $1 and id = $2', [usuario.id, id]);
+
+        if (produtos.rowCount === 0) {
+            return res.status(404).json('Não há produtos com o ID informado.')
+        }
+
+        return res.status(200).json(produtos.rows);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+};
 
 module.exports = {
     cadastrarProduto,
     alterarProduto,
     deletarProduto, 
-    listarProdutos
+    listarProdutosDoUsuario,
+    listarProdutosId
 };

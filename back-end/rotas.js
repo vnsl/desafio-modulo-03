@@ -19,7 +19,7 @@ rotas.get('/perfil', usuarios.detalhes);
 rotas.put('/perfil', usuarios.alterarUsuario);
 
 //Produtos
-rotas.get('/produtos', produtos.listarProdutos);
+rotas.get('/produtos', produtos.listarProdutosDoUsuario);
 rotas.get('/produtos/:id', produtos.listarProdutosId);
 rotas.post('/produtos', produtos.cadastrarProduto);
 rotas.put('/produtos/:id', produtos.alterarProduto);
