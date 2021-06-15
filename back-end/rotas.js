@@ -16,13 +16,13 @@ rotas.post('/cadastro', usuarios.cadastrarUsuario);
 rotas.use(verificarLogin);
 
 rotas.get('/perfil', usuarios.detalhes);
-rotas.put('/perfil');
+rotas.put('/perfil', usuarios.alterarUsuario);
 
 //Produtos
 rotas.get('/produtos');
 rotas.get('/produtos/:id');
-rotas.post('/produtos', produtos.cadastroProduto);
-rotas.put('/produtos/:id');
+rotas.post('/produtos', produtos.cadastrarProduto);
+rotas.put('/produtos/:id', produtos.alterarProduto);
 rotas.delete('/produtos/:id');
 
 
