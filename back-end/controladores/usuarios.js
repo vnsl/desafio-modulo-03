@@ -48,9 +48,49 @@ const detalhes = async (req, res) => {
     res.status(200).json(usuario);
 };
 
+const alterarUsuario = async (req, res) => {
+    const { nome, nome_loja, email, senha} = req.body;
+    const { usuario } = req;
 
+    if (!nome) {
+        return res.status(404).json('O campo nome é obrigatório.');
+    }
+    if (!nome_loja) {
+        return res.status(404).json('O campo nome da loja é obrigatório.');
+    }
+    if (!email) {
+        return res.status(404).json('O campo email é obrigatório.');
+    }
+    if (!senha) {
+        return res.status(404).json('O campo senha é obrigatório.');
+    }
+
+    try {
+        const consultaEmail = 'select * from usuarios where email = $1';
+        const { rowCount: quantidadeUsuarios } = await conexao.query(consultaEmail, [email]);
+
+        if (quantidadeUsuarios > 0) {
+            return res.status(400).json('Email já cadastrado.')
+        };
+
+        const senhaCriptografada = await bcrypt.hash(senha, 10);
+
+        const query = 'update usuarios set nome = $1, nome_loja = $2, email = $3, senha = $4 where id = $5';
+
+        const usuarioAtualizado = await conexao.query(query, [nome, nome_loja, email, senhaCriptografada, usuario.id]);
+
+        if (usuarioAtualizado.rowCount == 0) {
+            return res.status(400).json('Não foi possivel atualizar o cadastro do usuario.')
+        }
+
+        return res.status(200).json('Usuario atualizado com sucesso.')
+    } catch (error) {
+        return res.status(error.message);
+    }
+};
 
 module.exports = {
     cadastrarUsuario,
-    detalhes
+    detalhes,
+    alterarUsuario
 };
