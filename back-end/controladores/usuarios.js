@@ -49,35 +49,31 @@ const detalhes = async (req, res) => {
 };
 
 const alterarUsuario = async (req, res) => {
-    const { nome, nome_loja, email, senha} = req.body;
+    const { nome, nome_loja, email, senha } = req.body;
     const { usuario } = req;
 
-    if (!nome) {
-        return res.status(404).json('O campo nome é obrigatório.');
-    }
-    if (!nome_loja) {
-        return res.status(404).json('O campo nome da loja é obrigatório.');
-    }
-    if (!email) {
-        return res.status(404).json('O campo email é obrigatório.');
-    }
-    if (!senha) {
-        return res.status(404).json('O campo senha é obrigatório.');
-    }
+    if (!nome && !nome_loja && !email && !senha) {
+        return res.status(404).json('Ao menos 1 campo deve ser preenchido.')
+    };
+    
+    const novoNome = nome ? nome : usuario.nome;
+    const novoNome_loja = nome_loja ? nome_loja : usuario.nome_loja;
+    const novoEmail = email ? email : usuario.email;
+    const novoSenha = senha ? senha : usuario.senha;
 
     try {
         const consultaEmail = 'select * from usuarios where email = $1';
-        const { rowCount: quantidadeUsuarios } = await conexao.query(consultaEmail, [email]);
+        const { rowCount: quantidadeUsuarios, rows: user } = await conexao.query(consultaEmail, [novoEmail]);
 
-        if (quantidadeUsuarios > 0) {
+        if (quantidadeUsuarios > 0 && user[0].id !== usuario.id) {
             return res.status(400).json('Email já cadastrado.')
         };
 
-        const senhaCriptografada = await bcrypt.hash(senha, 10);
+        const novaSenhaCriptografada = await bcrypt.hash(novoSenha, 10);
 
         const query = 'update usuarios set nome = $1, nome_loja = $2, email = $3, senha = $4 where id = $5';
 
-        const usuarioAtualizado = await conexao.query(query, [nome, nome_loja, email, senhaCriptografada, usuario.id]);
+        const usuarioAtualizado = await conexao.query(query, [novoNome, novoNome_loja, novoEmail, novaSenhaCriptografada, usuario.id]);
 
         if (usuarioAtualizado.rowCount == 0) {
             return res.status(400).json('Não foi possivel atualizar o cadastro do usuario.')
