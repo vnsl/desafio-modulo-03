@@ -59,8 +59,8 @@ const alterarUsuario = async (req, res) => {
     const novoNome = nome ? nome : usuario.nome;
     const novoNome_loja = nome_loja ? nome_loja : usuario.nome_loja;
     const novoEmail = email ? email : usuario.email;
-    const novoSenha = senha ? senha : usuario.senha;
-
+    const novaSenha = senha ? senha : null;
+    
     try {
         const consultaEmail = 'select * from usuarios where email = $1';
         const { rowCount: quantidadeUsuarios, rows: user } = await conexao.query(consultaEmail, [novoEmail]);
@@ -68,12 +68,19 @@ const alterarUsuario = async (req, res) => {
         if (quantidadeUsuarios > 0 && user[0].id !== usuario.id) {
             return res.status(400).json('Email já cadastrado.')
         };
-
-        const novaSenhaCriptografada = await bcrypt.hash(novoSenha, 10);
+        
+        if (novaSenha) {
+            const senhaVerificada = await bcrypt.compare(novaSenha, user[0].senha);
+    
+            if (senhaVerificada) {
+                return res.status(400).json('Senha já utilizada anteriormente.')
+            };
+        };
+        const senhaCriptografada = novaSenha ? await bcrypt.hash(novaSenha, 10) : user[0].senha;
 
         const query = 'update usuarios set nome = $1, nome_loja = $2, email = $3, senha = $4 where id = $5';
 
-        const usuarioAtualizado = await conexao.query(query, [novoNome, novoNome_loja, novoEmail, novaSenhaCriptografada, usuario.id]);
+        const usuarioAtualizado = await conexao.query(query, [novoNome, novoNome_loja, novoEmail, senhaCriptografada, usuario.id]);
 
         if (usuarioAtualizado.rowCount == 0) {
             return res.status(400).json('Não foi possivel atualizar o cadastro do usuario.')
