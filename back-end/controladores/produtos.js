@@ -94,7 +94,8 @@ const deletarProduto = async (req, res) => {
 
 const listarProdutosDoUsuario = async (req, res) => {
     const { usuario } = req;
-    
+    const categoria = req.query.categoria;
+
     try {
         const produtos = await conexao.query('select * from produtos where usuario_id = $1', [usuario.id]);
 
@@ -102,6 +103,14 @@ const listarProdutosDoUsuario = async (req, res) => {
             return res.status(400).json('Nenhum produto cadastrado.')
         }
 
+        if (categoria) {
+            const filtroCategoria = produtos.rows.filter(filtro => filtro.categoria === categoria);
+            if (filtroCategoria.length === 0) {
+                return res.status(404).json('Nenhum produto cadastrado na categoria informada.')
+            } else {
+                return res.status(200).json(filtroCategoria);
+            };
+        }
         return res.status(200).json(produtos.rows);
 
     } catch (error) {
