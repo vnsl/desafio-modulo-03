@@ -82,7 +82,7 @@ const alterarUsuario = async (req, res) => {
 
         const usuarioAtualizado = await conexao.query(query, [novoNome, novoNome_loja, novoEmail, senhaCriptografada, usuario.id]);
 
-        if (usuarioAtualizado.rowCount == 0) {
+        if (usuarioAtualizado.rowCount === 0) {
             return res.status(400).json('Não foi possivel atualizar o cadastro do usuario.')
         }
 

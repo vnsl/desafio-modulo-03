@@ -7,7 +7,7 @@ const login = async (req, res) => {
     const { email, senha } = req.body;
 
     if (!email || !senha) {
-        return res.status(404).json('Email e senha são obrigatórios.')
+        return res.status(400).json('Email e senha são obrigatórios.')
     }
 
     try {
@@ -16,7 +16,7 @@ const login = async (req, res) => {
         const { rows, rowCount } = await conexao.query(emailVerificado, [email])
         
         if (rowCount === 0) {
-            return res.status(404).json('Usúario não encontrado.')
+            return res.status(400).json('Usúario não encontrado.')
         }
 
         const usuario = rows[0];
