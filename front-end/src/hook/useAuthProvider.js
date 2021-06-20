@@ -16,9 +16,9 @@ export default function useAuthProvider() {
     } 
 
     const deslogar = () => {
-        setToken(null);
         removeTokenPersistido();
         removeUserPersistido();
+        setToken(null);
     }
 
     return {

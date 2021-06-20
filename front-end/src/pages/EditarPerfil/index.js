@@ -6,14 +6,13 @@ import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link } from 'react-router-dom';
-
-import useStyles from './styles';
+import SideBar from '../../components/SideBar';
+import './index.css';
 
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 
 function EditarPerfil() {
-  const classes = useStyles();
   const { register, handleSubmit } = useForm();
   const history = useHistory();
   const [ erro, setErro ] = useState('');
@@ -70,26 +69,33 @@ function EditarPerfil() {
   };
 
   return (
-    <form 
-      className={classes.root} 
-      noValidate 
-      autoComplete="off"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <Typography variant="h1">{userPersistido.nome}</Typography>
-      <Typography variant="h3">Editar Perfil</Typography>
-      {carregando && <CircularProgress color="secondary" />}
-      <TextField label="Seu nome" {...register('nome')} type='text'/>
-      <TextField label="Nome da loja" {...register('nome_loja')} type='text'/>
-      <TextField label="E-mail" {...register('email')} type='text'/>
-      <TextField label="Nova senha" {...register('senha')} type='password'/>
-      <TextField label="Repita a nova senha" {...register('senhaValidar')} type='password'/>
-      <div>
-        <Typography variant="p"><Link to='/perfil'>CANCELAR</Link></Typography>
-        <Button variant='contained' color='primary' type='submit'>EDITAR PERFIL</Button>
-      </div>
-      {erro && <Alert severity="error">{erro}</Alert>}
-    </form>
+    <div className='container'>
+      <SideBar/>
+      <form 
+        className='perfil' 
+        noValidate 
+        autoComplete="off"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className='perfil-content'>
+          <Typography variant="h2">{userPersistido.nome}</Typography>
+          <Typography variant="h3">Editar Perfil</Typography>
+          {carregando && <CircularProgress color="secondary" />}
+          <div className='textfield'>
+            <TextField label="Seu nome" {...register('nome')} defaultValue={userPersistido.nome} type='text'/>
+            <TextField label="Nome da loja" {...register('nome_loja')} type='text'/>
+            <TextField label="E-mail" {...register('email')} type='text'/>
+            <TextField label="Nova senha" {...register('senha')} type='password'/>
+            <TextField label="Repita a nova senha" {...register('senhaValidar')} type='password'/>
+          </div>
+            <div className='botoes'>
+              <Typography variant="p"><Link to='/perfil'>CANCELAR</Link></Typography>
+              <Button variant='contained' color='primary' type='submit'>EDITAR PERFIL</Button>
+              {erro && <Alert severity="error">{erro}</Alert>}
+            </div>
+        </div>
+      </form>
+    </div>
   );
 }
 

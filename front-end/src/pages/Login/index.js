@@ -47,7 +47,7 @@ function Login() {
 
       logar(dados.token, dados.usuario);
 
-      history.push('/produtos');
+      history.push('/perfil');
     } catch (error) {
       setErro(error.message)
     }

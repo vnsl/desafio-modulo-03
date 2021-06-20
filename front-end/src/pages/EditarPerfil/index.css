@@ -1,0 +1,48 @@
+* {
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  place-content: start;
+  width: 100vw;
+  height: 100vh;
+}
+
+.perfil {
+  display: grid;
+  width: 100%;
+  overflow: auto;
+  padding: 74px;
+  height: 100%;
+}
+
+.perfil-content {
+
+}
+
+.botoes {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 25px;
+  border-top: #BFBFBF solid 1px;
+  padding-top: 35px;
+  width: 100%;
+}
+
+.botao {
+  justify-self: start;
+  align-self: start;
+}
+
+.textfield {
+  display: grid;
+  gap: 50px;
+  margin-bottom: 25px;
+  width: 400px;
+}

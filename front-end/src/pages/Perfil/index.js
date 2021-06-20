@@ -5,11 +5,10 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-
-import useStyles from './styles';
+import SideBar from '../../components/SideBar';
+import './index.css';
 
 function Perfil() {
-  const classes = useStyles();
   const { token, userPersistido, setUserPersistido } = useAuth();
 
   const { handleSubmit } = useForm();
@@ -37,19 +36,24 @@ function Perfil() {
   function onSubmit() {
     history.push('/perfil/editar');
   };
-  
+
   return (
-    <form
-    className={classes.root} 
-    // onSubmit={handleSubmit(onSubmit)}
-    >
-      <Typography variant="h1">{userPersistido.nome}</Typography>
-      <Typography variant="h3">Perfil</Typography>
-      <TextField disabled label="Seu nome" type='text' defaultValue={userPersistido.nome}/>
-      <TextField disabled label="Nome da loja" type='text' defaultValue={userPersistido.nome_loja}/>
-      <TextField disabled label="E-mail" type='text' defaultValue={userPersistido.email}/>
-      <Button variant='contained' color='primary' type='submit' onClick={handleSubmit(onSubmit)}>Editar perfil</Button>
-    </form>
+    <div className='container'>
+      <SideBar></SideBar>
+      <div className='perfil'>
+        <Typography variant="h2">{userPersistido.nome_loja}</Typography>
+        <Typography variant="h3">Perfil</Typography>
+          <div className='textfield'>
+          <TextField disabled label="Seu nome" type='text' defaultValue={userPersistido.nome}/>
+          <TextField disabled label="Nome da loja" type='text' defaultValue={userPersistido.nome_loja}/>
+          <TextField disabled label="E-mail" type='text' defaultValue={userPersistido.email}/>
+          </div>
+          <div className='botoes'>
+            {/* <Button className='botao' variant='contained' color='primary' type='submit' onClick={handleSubmit(onSubmit)}>Editar perfil</Button> */}
+            <Button className='botao' variant='contained' color='primary' type='submit' onClick={handleSubmit(onSubmit)}>Editar perfil</Button>
+          </div>
+      </div>
+    </div>
   );
 }
 
