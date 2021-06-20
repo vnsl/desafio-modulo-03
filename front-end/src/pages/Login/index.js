@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link } from 'react-router-dom';
+import './index.css';
 
 import useStyles from './styles';
 
@@ -54,21 +55,25 @@ function Login() {
   };
 
   return (
-    <form 
-      className={classes.root} 
-      noValidate 
-      autoComplete="off"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      
-      <Typography variant="h4">Login</Typography>
-      {carregando && <CircularProgress color="secondary" />}
-      <TextField label="E-mail" {...register('email')} type='text'/>
-      <TextField label="Senha" {...register('senha')} type='password'/>
-      <Button variant='contained' color='primary' type='submit'>Entrar</Button>
-      {erro && <Alert severity="error">{erro}</Alert>}
-      <Typography variant="body1">Cadastre-se agora... <Link to='/cadastro'>Cadastro!</Link></Typography>
-    </form>
+    <div className='container-login'>
+      <form 
+        className={classes.root} 
+        noValidate 
+        autoComplete="off"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className='login'>
+          <Typography variant="h4">Login</Typography>
+          {carregando && <CircularProgress color="secondary" />}
+          <TextField className='textarea' label="E-mail" {...register('email')} type='text'/>
+          <TextField className='textarea' label="Senha" {...register('senha')} type='password'/>
+          <Button variant='contained' color='primary' type='submit'>Entrar</Button>
+          {erro && <Alert severity="error">{erro}</Alert>}
+          <Typography variant="body1">Primeira vez aqui? <Link to='/cadastro'>CRIE UMA CONTA</Link></Typography>
+
+        </div>
+      </form>
+    </div>
   );
 }
 

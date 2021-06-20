@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import useAuth from '../../hook/useAuth';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -40,7 +40,7 @@ function Produtos() {
   }, []);
 
   return (
-    <div>
+    <div className='container'>
       <div>
         <h1>Claro</h1>
       </div>

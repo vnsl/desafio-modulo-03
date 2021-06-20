@@ -41,14 +41,14 @@ function Perfil() {
   return (
     <form
     className={classes.root} 
-    onSubmit={handleSubmit(onSubmit)}
+    // onSubmit={handleSubmit(onSubmit)}
     >
       <Typography variant="h1">{userPersistido.nome}</Typography>
       <Typography variant="h3">Perfil</Typography>
       <TextField disabled label="Seu nome" type='text' defaultValue={userPersistido.nome}/>
       <TextField disabled label="Nome da loja" type='text' defaultValue={userPersistido.nome_loja}/>
       <TextField disabled label="E-mail" type='text' defaultValue={userPersistido.email}/>
-      <Button variant='contained' color='primary' type='submit'>Editar perfil</Button>
+      <Button variant='contained' color='primary' type='submit' onClick={handleSubmit(onSubmit)}>Editar perfil</Button>
     </form>
   );
 }

@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link } from 'react-router-dom';
+import './index.css';
 
 import useStyles from './styles';
 
@@ -54,23 +55,27 @@ function Cadastro() {
   };
 
   return (
-    <form 
-      className={classes.root} 
-      noValidate 
-      autoComplete="off"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <Typography variant="h4">Criar uma conta</Typography>
-      {carregando && <CircularProgress color="secondary" />}
-      <TextField label="Nome" {...register('nome')} type='text'/>
-      <TextField label="Nome da loja" {...register('nome_loja')} type='text'/>
-      <TextField label="E-mail" {...register('email')} type='text'/>
-      <TextField label="Senha" {...register('senha')} type='password'/>
-      <TextField label="Repita a senha" {...register('senhaValidar')} type='password'/>
-      <Button variant='contained' color='primary' type='submit'>CRIAR CONTA</Button>
-      {erro && <Alert severity="error">{erro}</Alert>}
-      <Typography variant="p">Acesse agora<Link to='/'>Acesse</Link></Typography>
-    </form>
+    <div className='container-cadastro'>
+      <form 
+        className={classes.root} 
+        noValidate 
+        autoComplete="off"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className='cadastro'>
+          <Typography variant="h4">Criar uma conta</Typography>
+          {carregando && <CircularProgress color="secondary" />}
+          <TextField className='textarea' label="Nome" {...register('nome')} type='text'/>
+          <TextField className='textarea' label="Nome da loja" {...register('nome_loja')} type='text'/>
+          <TextField className='textarea' label="E-mail" {...register('email')} type='text'/>
+          <TextField className='textarea' label="Senha" {...register('senha')} type='password'/>
+          <TextField className='textarea' label="Repita a senha" {...register('senhaValidar')} type='password'/>
+          <Button variant='contained' color='primary' type='submit'>CRIAR CONTA</Button>
+          {erro && <Alert severity="error">{erro}</Alert>}
+          <Typography className='centro' variant="p">Já possui uma conta? <Link to='/'>ACESSE</Link></Typography>
+        </div>
+      </form>
+    </div>
   );
 }
 
