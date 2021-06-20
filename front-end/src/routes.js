@@ -10,6 +10,9 @@ import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import Perfil from "./pages/Perfil";
 import Produtos from "./pages/Produtos";
+import EditarPerfil from "./pages/EditarPerfil";
+import AdcProduto from "./pages/AdcProduto";
+import EditarProduto from "./pages/EditarProduto";
 
 import { AuthProvider } from './context/AuthContext';
 import useAuth from './hook/useAuth';
@@ -32,13 +35,16 @@ function Routes() {
                     <Route path="/" exact component={Login}/>
                     <Route path="/cadastro" component={Cadastro}/>
                     <RotasProtegidas>
-                        <Route path="/perfil" component={Perfil}/>
-                        <Route path="/produtos" component={Produtos}/>
+                        <Route path="/perfil" exact component={Perfil}/>
+                        <Route path="/perfil/editar" component={EditarPerfil}/>
+                        <Route path="/produtos" exact component={Produtos}/>
+                        <Route path="/produtos/novo" component={AdcProduto}/>
+                        <Route path="/produtos/editar" component={EditarProduto}/>
                     </RotasProtegidas>
                 </Switch>
             </Router>
         </AuthProvider>
-    )
+    );
 }
 
 

@@ -20,7 +20,7 @@ function Login() {
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
 
-  const { setToken } = useAuth();
+  const { logar } = useAuth();
 
   async function onSubmit(data) {
     setCarregando(true);
@@ -44,7 +44,7 @@ function Login() {
         return;
       }
 
-      setToken(dados.token);
+      logar(dados.token, dados.usuario);
 
       history.push('/produtos');
     } catch (error) {
