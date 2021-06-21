@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useAuth from '../../hook/useAuth';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import Card from '../../components/Card';
 import SideBar from '../../components/SideBar';
@@ -13,7 +13,11 @@ function Produtos() {
   const { token, userPersistido, produtos, setProdutos } = useAuth();
   const [carregando, setCarregando] = useState(false);
   const [presente, setPresente] = useState(false);
+  const history = useHistory();
 
+  function clicado() {
+    history.push('/produtos/novo')
+  }
   async function listarProdutos() {
     setCarregando(true);
     
@@ -51,7 +55,7 @@ function Produtos() {
           </div>
         </div>
         <div className='botoes'>
-          <Button variant='contained' color='primary' type='submit'><Link to='/produtos/novo'>ADICIONAR PRODUTO</Link></Button>
+          <Button variant='contained' color='primary' type='submit' onClick={clicado}>ADICIONAR PRODUTO</Button>
         </div>
       </div>
     </div>
