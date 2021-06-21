@@ -47,8 +47,7 @@ function Produtos() {
           <Typography variant="h2">{userPersistido.nome_loja}</Typography>
           <Typography variant="h3">Seus Produtos</Typography>
           <div className='cards'>
-            {presente && produtos.map(produto => Card(produto))}
-            {!presente && <Typography className='text' variant="h4">Cadastre um novo produto.</Typography>}
+            {presente ? produtos.map(produto => Card(produto)) : <Typography className='text' variant="h4">Cadastre um novo produto.</Typography>}
           </div>
         </div>
         <div className='botoes'>

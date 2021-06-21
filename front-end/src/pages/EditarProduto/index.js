@@ -44,7 +44,6 @@ function EditarProduto() {
 
       const resposta2 = await fetch(`http://localhost:3000${caminho}`, {
         method: 'GET',
-        body: JSON.stringify(data),
         headers: {
           'Content-type': 'application/json',
           'Authorization': `Bearer ${token}`
