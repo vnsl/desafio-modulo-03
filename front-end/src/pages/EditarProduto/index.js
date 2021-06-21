@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState, useEffect } from 'react';
 import useAuth from '../../hook/useAuth';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -21,6 +21,34 @@ function EditarProduto() {
 
   const caminho = useLocation().pathname.slice(0, -7);
 
+
+  async function listarProduto() {
+    setCarregando(true);
+    
+    const resposta2 = await fetch(`http://localhost:3000${caminho}`, {
+      method: 'GET',
+      body: JSON.stringify(),
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    const data2 = await resposta2.json();
+
+    console.log(data2[0]);
+    setProduto(data2[0]);
+    setCarregando(false);
+
+    if (!resposta2.ok) {
+      setErro(data2);
+      return;
+    }
+  };
+
+  useEffect(() => {
+    listarProduto();
+  }, []);
+
   async function onSubmit(data) {
     setCarregando(true);
     setErro('');
@@ -42,23 +70,7 @@ function EditarProduto() {
         return;
       }
 
-      const resposta2 = await fetch(`http://localhost:3000${caminho}`, {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      
-      const dados2 = await resposta2.json();
-      
-      if (!resposta.ok) {
-        setErro(dados2);
-        return;
-      }
-
       setProdutos(dados);
-      setProduto(dados2);
 
       history.push('/produtos');
 
@@ -94,13 +106,13 @@ function EditarProduto() {
               <TextField label="Imagem" {...register('imagem')} defaultValue={produto.imagem} type='text'/>
             </div>
           <div>
-            <img src={produto}></img>
+            <img src={produto.imagem}></img>
           </div>
 
         </div>
         <div className='botoes'>
           <Typography variant="p"><Link to='/produtos'>CANCELAR</Link></Typography>
-          <Button variant='contained' color='primary' type='submit'>ADICIONAR PRODUTO</Button>
+          <Button variant='contained' color='primary' type='submit'>EDITAR PRODUTO</Button>
           {erro && <Alert severity="error">{erro}</Alert>}
         </div>
       </form>

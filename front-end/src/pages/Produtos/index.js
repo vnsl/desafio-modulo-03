@@ -18,6 +18,7 @@ function Produtos() {
   function clicado() {
     history.push('/produtos/novo')
   }
+  
   async function listarProdutos() {
     setCarregando(true);
     

@@ -12,7 +12,7 @@ export default function Card(produto) {
     <div className='card'>
       <button className='cardDelete'><Modal id={produto.id}/></button>
       <Link to={caminho}>
-        <img src={produto.image}/>
+        <img src={produto.imagem}/>
         <div className='cardInfo'>
           <h4 className='cardTitle'>{produto.nome}</h4>
           <p className='cardDesc'>{produto.descricao}</p>
