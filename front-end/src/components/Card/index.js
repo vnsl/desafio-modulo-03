@@ -1,50 +1,27 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import DeleteIcon from '@material-ui/icons/Delete';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-});
+import './index.css';
+import { Link } from 'react-router-dom';
 
-export default function MediaCard(produto) {
-  const classes = useStyles();
+export default function Card(produto) {
+
+  const caminho = `/produtos/${produto.id}/editar`; 
 
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={produto.imagem}
-          title={produto.nome}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {produto.nome}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {produto.descrição}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
+    <div className='card'>
+      <button className='cardDelete'><DeleteIcon/></button>
+      <Link to={caminho}>
+        <img src={produto.image}/>
+        <div className='cardInfo'>
+          <h4 className='cardTitle'>{produto.nome}</h4>
+          <p className='cardDesc'>{produto.descricao}</p>
+          <div className='cardFooter'>
+            <p className='cardQt'>{produto.estoque}</p>
+            <p className='cardPreco'>{produto.preco}</p>
+          </div>
+        </div>
+      </Link>
+    </div>
   );
 }

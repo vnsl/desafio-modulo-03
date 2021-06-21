@@ -1,0 +1,27 @@
+* {
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  place-content: start;
+  width: 100vw;
+}
+
+.cards {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(4, 235px);
+}
+
+.text {
+  padding-top: 30px;
+  padding-left: 20px;
+}
+
+a {
+  text-decoration: none;
+}

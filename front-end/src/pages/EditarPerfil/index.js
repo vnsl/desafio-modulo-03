@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Loading from '../../components/Loading';
 import { Link } from 'react-router-dom';
 import SideBar from '../../components/SideBar';
 import './index.css';
@@ -80,19 +80,19 @@ function EditarPerfil() {
         <div className='perfil-content'>
           <Typography variant="h2">{userPersistido.nome}</Typography>
           <Typography variant="h3">Editar Perfil</Typography>
-          {carregando && <CircularProgress color="secondary" />}
+          {carregando && <Loading/>}
           <div className='textfield'>
-            <TextField label="Seu nome" {...register('nome')} defaultValue={userPersistido.nome} type='text'/>
+            <TextField label="Seu nome" {...register('nome')} type='text'/>
             <TextField label="Nome da loja" {...register('nome_loja')} type='text'/>
             <TextField label="E-mail" {...register('email')} type='text'/>
             <TextField label="Nova senha" {...register('senha')} type='password'/>
             <TextField label="Repita a nova senha" {...register('senhaValidar')} type='password'/>
           </div>
-            <div className='botoes'>
-              <Typography variant="p"><Link to='/perfil'>CANCELAR</Link></Typography>
-              <Button variant='contained' color='primary' type='submit'>EDITAR PERFIL</Button>
-              {erro && <Alert severity="error">{erro}</Alert>}
-            </div>
+          <div className='botoes'>
+            <Typography variant="p"><Link to='/perfil'>CANCELAR</Link></Typography>
+            <Button variant='contained' color='primary' type='submit'>EDITAR PERFIL</Button>
+            {erro && <Alert severity="error">{erro}</Alert>}
+          </div>
         </div>
       </form>
     </div>

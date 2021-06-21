@@ -1,20 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAuth from '../../hook/useAuth';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { useForm } from 'react-hook-form';
+import Loading from '../../components/Loading';
 import { useHistory } from 'react-router-dom';
 import SideBar from '../../components/SideBar';
 import './index.css';
 
 function Perfil() {
   const { token, userPersistido, setUserPersistido } = useAuth();
-
+  const [carregando, setCarregando] = useState(false);
   const { handleSubmit } = useForm();
   const history = useHistory();
 
   async function infoPerfil() {
+    setCarregando(true);
+
     const resposta = await fetch('http://localhost:3000/perfil', {
       method: 'GET',
       body: JSON.stringify(),
@@ -26,6 +29,7 @@ function Perfil() {
     const data = await resposta.json();
   
     setUserPersistido(data);
+    setCarregando(false);
     
   };
 
@@ -41,6 +45,7 @@ function Perfil() {
     <div className='container'>
       <SideBar></SideBar>
       <div className='perfil'>
+        {carregando && <Loading/>}
         <Typography variant="h2">{userPersistido.nome_loja}</Typography>
         <Typography variant="h3">Perfil</Typography>
           <div className='textfield'>

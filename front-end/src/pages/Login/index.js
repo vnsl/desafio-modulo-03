@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Loading from '../../components/Loading';
 import { Link } from 'react-router-dom';
 import './index.css';
 
@@ -64,7 +64,7 @@ function Login() {
       >
         <div className='login'>
           <Typography variant="h4">Login</Typography>
-          {carregando && <CircularProgress color="secondary" />}
+          {carregando && <Loading/>}
           <TextField className='textarea' label="E-mail" {...register('email')} type='text'/>
           <TextField className='textarea' label="Senha" {...register('senha')} type='password'/>
           <Button variant='contained' color='primary' type='submit'>Entrar</Button>

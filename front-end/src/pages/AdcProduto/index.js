@@ -4,21 +4,21 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Loading from '../../components/Loading';
+import SideBar from '../../components/SideBar';
 import { Link } from 'react-router-dom';
 
-import useStyles from './styles';
+import './index.css';
 
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 
 function AdcProduto() {
-  const classes = useStyles();
   const { register, handleSubmit } = useForm();
   const history = useHistory();
   const [ erro, setErro ] = useState('');
   const [ carregando, setCarregando ] = useState(false);
-  const { token, userPersistido, setProdutos, produtos } = useAuth();
+  const { token, userPersistido, setProdutos } = useAuth();
 
   async function onSubmit(data) {
     setCarregando(true);
@@ -64,26 +64,35 @@ function AdcProduto() {
   };
 
   return (
-    <form 
-      className={classes.root} 
-      noValidate 
-      autoComplete="off"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <Typography variant="h1">{userPersistido.nome_loja}</Typography>
-      <Typography variant="h3">Adicionar produto</Typography>
-      {carregando && <CircularProgress color="secondary" />}
-      <TextField label="Nome do produto" {...register('nome')} type='text'/>
-      <TextField label="Preco" {...register('preco')} type='text'/>
-      <TextField label="Estoque" {...register('estoque')} type='text'/>
-      <TextField label="Descrição" {...register('descricao')} type='text'/>
-      <TextField label="Imagem" {...register('imagem')} type='text'/>
-      <div>
-        <Typography variant="p"><Link to='/produtos'>CANCELAR</Link></Typography>
-        <Button variant='contained' color='primary' type='submit'>ADICIONAR PRODUTO</Button>
-      </div>
-      {erro && <Alert severity="error">{erro}</Alert>}
-    </form>
+    <div className='container'>
+      <SideBar/>
+      <form 
+        className='perfil' 
+        noValidate 
+        autoComplete="off"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className='perfil-content'>
+          <Typography variant="h2">{userPersistido.nome_loja}</Typography>
+          <Typography variant="h3">Adicionar produto</Typography>
+          {carregando && <Loading/>}
+        </div>
+        <div className='textfield'>
+          <TextField label="Nome do produto" {...register('nome')} type='text'/>
+          <div className='together'>
+            <TextField label="Preco" {...register('preco')} type='text'/>
+            <TextField label="Estoque" {...register('estoque')} type='text'/>
+          </div>
+          <TextField label="Descrição" {...register('descricao')} type='text'/>
+          <TextField label="Imagem" {...register('imagem')} type='text'/>
+        </div>
+        <div className='botoes'>
+          <Typography variant="p"><Link to='/produtos'>CANCELAR</Link></Typography>
+          <Button variant='contained' color='primary' type='submit'>ADICIONAR PRODUTO</Button>
+          {erro && <Alert severity="error">{erro}</Alert>}
+        </div>
+      </form>
+    </div>
   );
 }
 

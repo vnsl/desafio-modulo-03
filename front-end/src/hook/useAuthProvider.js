@@ -8,6 +8,7 @@ export default function useAuthProvider() {
 
     const [token, setToken] = useState(tokenPersistido);
     const [produtos, setProdutos] = useState([]);
+    const [produto, setProduto] = useState([]);
 
     const logar = (token, user) => {
         setToken(token);
@@ -28,6 +29,8 @@ export default function useAuthProvider() {
         userPersistido,
         setUserPersistido,
         produtos,
-        setProdutos
+        setProdutos,
+        produto,
+        setProduto
     };
 };

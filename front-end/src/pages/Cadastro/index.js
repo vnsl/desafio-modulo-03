@@ -3,8 +3,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link } from 'react-router-dom';
+import Loading from '../../components/Loading';
 import './index.css';
 
 import useStyles from './styles';
@@ -64,7 +64,7 @@ function Cadastro() {
       >
         <div className='cadastro'>
           <Typography variant="h4">Criar uma conta</Typography>
-          {carregando && <CircularProgress color="secondary" />}
+          {carregando && <Loading/>}
           <TextField className='textarea' label="Nome" {...register('nome')} type='text'/>
           <TextField className='textarea' label="Nome da loja" {...register('nome_loja')} type='text'/>
           <TextField className='textarea' label="E-mail" {...register('email')} type='text'/>

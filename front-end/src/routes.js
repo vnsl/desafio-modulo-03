@@ -39,7 +39,7 @@ function Routes() {
                         <Route path="/perfil/editar" component={EditarPerfil}/>
                         <Route path="/produtos" exact component={Produtos}/>
                         <Route path="/produtos/novo" component={AdcProduto}/>
-                        <Route path="/produtos/editar" component={EditarProduto}/>
+                        <Route path="/produtos/:id/editar" component={EditarProduto}/>
                     </RotasProtegidas>
                 </Switch>
             </Router>
