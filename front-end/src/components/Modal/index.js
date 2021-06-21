@@ -12,6 +12,7 @@ export default function Modal(info) {
   const [open, setOpen] = React.useState(false);
   const [ erro, setErro ] = useState('');
   const { token, setProdutos } = useAuth();
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -22,14 +23,13 @@ export default function Modal(info) {
 
   async function handleExcluir() {
     const id = info.id.toString();
+    setErro('');
     
     try {
       const resposta = await fetch(`http://localhost:3000/produtos/${id}`, {
         method: 'DELETE',
-        body: JSON.stringify({ token }),
         headers: {
-          'Content-type': 'application/json',
-          'Authorizarion': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`
         }
       })
       
