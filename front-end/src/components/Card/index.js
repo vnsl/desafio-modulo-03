@@ -1,5 +1,5 @@
 import React from 'react';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Modal from '../Modal';
 
 import './index.css';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,7 @@ export default function Card(produto) {
 
   return (
     <div className='card'>
-      <button className='cardDelete'><DeleteIcon/></button>
+      <button className='cardDelete'><Modal id={produto.id}/></button>
       <Link to={caminho}>
         <img src={produto.image}/>
         <div className='cardInfo'>
